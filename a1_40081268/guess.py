@@ -1,8 +1,8 @@
 """
 This is a class which handles user input and utlilzes other classes in order to perform operations.
 """
-from A1.StringDatabase import StringDatabse
-from A1.Game import Game
+from a1_40081268.stringDatabase import StringDatabse
+from a1_40081268.game import Game
 import random
 
 

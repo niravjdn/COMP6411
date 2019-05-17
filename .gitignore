@@ -77,5 +77,5 @@ parts
 src/*.egg-info
 lib
 lib64
-*.pyc
-*.pyo
+.pyc
+.pyo

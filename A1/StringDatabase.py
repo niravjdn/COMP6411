@@ -3,10 +3,14 @@ This is a class which deals with I/O operation, here It reads and parse the file
 """
 class StringDatabse:
 
-    def StringDatabse(self):
+    def __init__(self):
         pass
 
     def returnListOfWorkds(self):
+        """
+        This method return list of words from the file
+        :return: list of words
+        """
         with open('four_letters.txt') as fi:
             list_Words = [target.replace("\n","") for line in fi for target in line.split(" ")]
             return  list_Words

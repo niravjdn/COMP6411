@@ -1,3 +1,6 @@
+"""
+This is a class which deals with I/O operation, here It reads and parse the file.
+"""
 class StringDatabse:
     def returnListOfWorkds(self):
         with open('four_letters.txt') as fi:

@@ -1,3 +1,6 @@
+"""
+This is a class which handles user input and utlilzes other classes in order to perform operations.
+"""
 from A1.StringDatabase import StringDatabse
 from A1.Game import Game
 import random
@@ -7,11 +10,15 @@ def guessWord(word_list):
     return word_list[random.randint(0,4029)]
 
 
-def printResults(game_list):
+def printResults(game_list, total=0.0):
     print("Game   Word      Status        Bad Guesses     Missing Letters    Score")
     print("----   ----    -----------     ------------    ---------------    -----")
     for game in game_list:
-        print(f"{game.count}      {game.word}      {game.status}            {game.guess_attempt}                  {game.missing_letters}           {game.score}")
+        print("%s      %s      %s            %s                  %s           %s" % (
+        game.count, game.word, game.status, game.guess_attempt, game.missing_letters, game.score))
+        current_score = game.score
+        total = total + float(game.score)
+    print("Final Score: %s" % total)
 
 
 def handleSingleGuess(char, temp, currentWord):
@@ -29,7 +36,7 @@ def handleSingleGuess(char, temp, currentWord):
 if __name__ == '__main__':
     Stringdb = StringDatabse()
     word_list = Stringdb.returnListOfWorkds()
-    print(len(word_list))
+    #print(len(word_list))
 
     #guess any random word from list
 
@@ -38,15 +45,13 @@ if __name__ == '__main__':
     game_over = False
     game_quit = False
     game_list = list()
-    while count < 2:
-        print("Starting")
+    while count < 100:
         count = count + 1;
         currentWord = guessWord(word_list)
         currentWord='laid'
-        print(currentWord)
         temp = "----"
+        print(f"Current Guess: {temp}")
         game = Game(count, currentWord)
-        print(len(game.frequency_list))
         game_over = False
         while not game_over:
             choice = input('g = guess, t = tell me, l for a letter, and q to quit\n')
@@ -65,7 +70,7 @@ if __name__ == '__main__':
                 print(f"The word is {currentWord}")
                 game.set_status("Gave up")
                 game.calculate_final_score(temp, currentWord, True)
-                break;
+                break
             elif (choice == 'l'):
                 char = input('Enter a letter:\n')
                 temp = handleSingleGuess(char, temp, currentWord)
@@ -80,7 +85,8 @@ if __name__ == '__main__':
             else:
                 print('Please Enter Valid Input \n')
 
-        game_list.append(game)
+        if(choice != 'q'):
+            game_list.append(game)
 
         if(game_quit):
             break

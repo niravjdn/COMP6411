@@ -44,7 +44,7 @@ class Game:
             character = currentword[idx]
             num = ord(character) - 97
             self.score = self.frequency_list[num] + self.score
-        print(self.score)
+        #print(self.score)
         if(is_gave_up):
             self.score = self.score * -1
             return

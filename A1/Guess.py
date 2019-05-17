@@ -33,13 +33,11 @@ def handleSingleGuess(char, temp, currentWord):
     return temp
 
 
-if __name__ == '__main__':
+def main():
     Stringdb = StringDatabse()
     word_list = Stringdb.returnListOfWorkds()
-    #print(len(word_list))
-
-    #guess any random word from list
-
+    # print(len(word_list))
+    # guess any random word from list
     print('** The great guessing game ** \n')
     count = 0
     game_over = False
@@ -48,23 +46,23 @@ if __name__ == '__main__':
     while count < 100:
         count = count + 1;
         currentWord = guessWord(word_list)
-        currentWord='laid'
+        currentWord = 'laid'
         temp = "----"
         print(f"Current Guess: {temp}")
         game = Game(count, currentWord)
         game_over = False
         while not game_over:
             choice = input('g = guess, t = tell me, l for a letter, and q to quit\n')
-            #take in put and take action and update game model
+            # take in put and take action and update game model
             if (choice == 'g'):
                 guess_value = input("Enter Guess:\n")
 
-                if(guess_value == currentWord):
+                if (guess_value == currentWord):
                     print('Congratulations, Starting new game\n')
                     game.set_status("Success")
                     game.calculate_final_score(temp, currentWord)
                     break
-                #only wrong guess attemp is counted
+                # only wrong guess attemp is counted
                 game.increase_guess_attemp()
             elif (choice == 't'):
                 print(f"The word is {currentWord}")
@@ -75,8 +73,8 @@ if __name__ == '__main__':
                 char = input('Enter a letter:\n')
                 temp = handleSingleGuess(char, temp, currentWord)
                 game.increase_letter_attempt()
-                #if all are discovered, mark its mark as zero
-                if("-" not in temp):
+                # if all are discovered, mark its mark as zero
+                if ("-" not in temp):
                     game_over = True
                     game.calculate_final_score(temp, currentWord)
             elif (choice == 'q'):
@@ -85,13 +83,17 @@ if __name__ == '__main__':
             else:
                 print('Please Enter Valid Input \n')
 
-        if(choice != 'q'):
+        if (choice != 'q'):
             game_list.append(game)
 
-        if(game_quit):
+        if (game_quit):
             break
-    
     printResults(game_list)
+
+
+if __name__ == '__main__':
+    main()
+
 
 def calculate_score(game):
     pass

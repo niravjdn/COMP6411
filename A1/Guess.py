@@ -1,10 +1,10 @@
 """
 This is a class which handles user input and utlilzes other classes in order to perform operations.
 """
-
 from A1.StringDatabase import StringDatabse
 from A1.Game import Game
 import random
+
 
 class Guess:
 

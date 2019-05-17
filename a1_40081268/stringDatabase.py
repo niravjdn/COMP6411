@@ -5,7 +5,7 @@ import os
 import sys
 
 
-class StringDatabse:
+class StringDatabase:
 
     def __init__(self):
         pass
@@ -15,10 +15,10 @@ class StringDatabse:
         This method return list of words from the file
         :return: list of words
         """
-        file_name = "four_letters.txt"
-        dirpath = os.path.dirname(__file__)
-        filepath = os.path.join(dirpath, file_name)
-        with open(filepath, "r") as fi:
+        file_path = "four_letters.txt"
+        # dirpath = os.path.dirname(__file__)
+        # file_path = os.path.join(dirpath, file_path)
+        with open(file_path, "r") as fi:
             list_Words = [target.replace("\n","") for line in fi for target in line.split(" ")]
             return list_Words
 

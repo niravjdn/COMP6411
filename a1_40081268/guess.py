@@ -1,7 +1,7 @@
 """
 This is a class which handles user input and utlilzes other classes in order to perform operations.
 """
-from a1_40081268.stringDatabase import StringDatabse
+from a1_40081268.stringDatabase import StringDatabase
 from a1_40081268.game import Game
 import random
 
@@ -56,7 +56,7 @@ class Guess:
         """
         Main method
         """
-        Stringdb = StringDatabse()
+        Stringdb = StringDatabase()
         word_list = Stringdb.returnListOfWorkds()
         # print(len(word_list))
         # guess any random word from list

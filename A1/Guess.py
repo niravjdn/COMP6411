@@ -42,14 +42,14 @@ class Guess:
         :param currentWord: original word
         :return: new temp string after unhiding correct letter if gueesed letter is correct
         """
-        print(f'You found {currentWord.count(char)} letters')
+        print('You found %s letters'%currentWord.count(char))
         for idx, c in enumerate(currentWord):
             if (c == char):
                 temp = list(temp)
                 temp[idx] = char
                 temp = "".join(temp)
 
-        print(f'Current Guess: {temp}')
+        print('Current Guess: %s'%temp)
         return temp
 
     def main(self):
@@ -70,7 +70,7 @@ class Guess:
             currentWord = self.guessWord(word_list)
             currentWord = 'laid'
             temp = "----"
-            print(f"Current Guess: {temp}")
+            print("Current Guess: %s" % temp)
             game = Game(count, currentWord)
             game_over = False
             while not game_over:
@@ -87,7 +87,7 @@ class Guess:
                     # only wrong guess attemp is counted
                     game.increase_guess_attemp()
                 elif (choice == 't'):
-                    print(f"The word is {currentWord}")
+                    print("The word is %s" % currentWord)
                     game.set_status("Gave up")
                     game.calculate_final_score(temp, currentWord, True)
                     break

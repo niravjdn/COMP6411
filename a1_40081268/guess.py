@@ -4,7 +4,7 @@ This is a class which handles user input and utlilzes other classes in order to 
 from a1_40081268.stringDatabase import StringDatabase
 from a1_40081268.game import Game
 import random
-
+import re
 
 class Guess:
 
@@ -75,10 +75,11 @@ class Guess:
             game_over = False
             while not game_over:
                 choice = input('g = guess, t = tell me, l for a letter, and q to quit\n')
+                addToGame = False
                 # take in put and take action and update game model
                 if (choice == 'g'):
                     guess_value = input("Enter Guess:\n")
-
+                    addToGame = True
                     if (guess_value == currentWord):
                         print('Congratulations, Starting new game\n')
                         game.set_status("Success")
@@ -88,11 +89,13 @@ class Guess:
                     game.increase_guess_attemp()
                 elif (choice == 't'):
                     print("The word is %s" % currentWord)
+                    addToGame = True
                     game.set_status("Gave up")
                     game.calculate_final_score(temp, currentWord, True)
                     break
                 elif (choice == 'l'):
                     char = input('Enter a letter:\n')
+                    addToGame = True
                     temp = self.handleSingleGuess(char, temp, currentWord)
                     game.increase_letter_attempt()
                     # if all are discovered, mark its mark as zero
@@ -101,11 +104,18 @@ class Guess:
                         game.calculate_final_score(temp, currentWord)
                 elif (choice == 'q'):
                     game_quit = True
+
+                    if(re.search(r"[a-z]", temp)):
+                        # it contains a-z, not all letters are hidden
+                        # minus point for it
+                        game.calculate_final_score_for_quit(temp, currentWord)
+                        game.set_status("Quit   ")
+                        addToGame = True
                     break
                 else:
                     print('Please Enter Valid Input \n')
 
-            if (choice != 'q'):
+            if (addToGame):
                 game_list.append(game)
 
             if (game_quit):

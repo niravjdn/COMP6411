@@ -49,6 +49,7 @@ class Game:
         #print(self.score)
         if(is_gave_up):
             self.score = self.score * -1
+            self.score = format(self.score, '.2f')
             return
 
         # minus points for wrong guess and letter guess used
@@ -60,10 +61,30 @@ class Game:
 
         self.score = format(self.score, '.2f')
 
+    def calculate_final_score_for_quit(self, temp, currentword, is_gave_up = False):
+        index_list = self.get_index_of_hidden_char(temp)
+        self.missing_letters = len(index_list)
+        index_list = self.get_index_of_guessed_char(temp)
+
+        # calculate for all guessed things first
+        for idx in index_list:
+            character = currentword[idx]
+            num = ord(character) - 97
+            self.score = self.frequency_list[num] + self.score
+        self.score = self.score * -1
+        self.score = format(self.score, '.2f')
+
     def get_index_of_hidden_char(self, temp):
         index_list = list()
         for idx, target in enumerate(temp):
             if(target == "-"):
+                index_list.append(idx)
+        return index_list
+
+    def get_index_of_guessed_char(self, temp):
+        index_list = list()
+        for idx, target in enumerate(temp):
+            if (target != "-"):
                 index_list.append(idx)
         return index_list
 

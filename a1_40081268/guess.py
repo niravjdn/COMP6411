@@ -1,8 +1,10 @@
 """
 This is a class which handles user input and utlilzes other classes in order to perform operations.
 """
-from a1_40081268.stringDatabase import StringDatabase
-from a1_40081268.game import Game
+
+
+import game
+import  stringDatabase
 import random
 import re
 
@@ -56,7 +58,7 @@ class Guess:
         """
         Main method
         """
-        Stringdb = StringDatabase()
+        Stringdb = stringDatabase.StringDatabase()
         word_list = Stringdb.returnListOfWorkds()
         # print(len(word_list))
         # guess any random word from list
@@ -66,12 +68,12 @@ class Guess:
         game_quit = False
         game_list = list()
         while count < 100:
-            count = count + 1;
+            count = count + 1
             currentWord = self.guessWord(word_list)
             currentWord = 'laid'
             temp = "----"
             print("Current Guess: %s" % temp)
-            game = Game(count, currentWord)
+            currentGame = game.Game(count, currentWord)
             game_over = False
             while not game_over:
                 choice = input('g = guess, t = tell me, l for a letter, and q to quit\n')
@@ -82,41 +84,41 @@ class Guess:
                     addToGame = True
                     if (guess_value == currentWord):
                         print('Congratulations, Starting new game\n')
-                        game.set_status("Success")
-                        game.calculate_final_score(temp, currentWord)
+                        currentGame.set_status("Success")
+                        currentGame.calculate_final_score(temp, currentWord)
                         break
                     # only wrong guess attemp is counted
-                    game.increase_guess_attemp()
+                    currentGame.increase_guess_attemp()
                 elif (choice == 't'):
                     print("The word is %s" % currentWord)
                     addToGame = True
-                    game.set_status("Gave up")
-                    game.calculate_final_score(temp, currentWord, True)
+                    currentGame.set_status("Gave up")
+                    currentGame.calculate_final_score(temp, currentWord, True)
                     break
                 elif (choice == 'l'):
                     char = input('Enter a letter:\n')
                     addToGame = True
                     temp = self.handleSingleGuess(char, temp, currentWord)
-                    game.increase_letter_attempt()
+                    currentGame.increase_letter_attempt()
                     # if all are discovered, mark its mark as zero
                     if ("-" not in temp):
                         game_over = True
-                        game.calculate_final_score(temp, currentWord)
+                        currentGame.calculate_final_score(temp, currentWord)
                 elif (choice == 'q'):
                     game_quit = True
 
                     if(re.search(r"[a-z]", temp)):
                         # it contains a-z, not all letters are hidden
                         # minus point for it
-                        game.calculate_final_score_for_quit(temp, currentWord)
-                        game.set_status("Quit   ")
+                        currentGame.calculate_final_score_for_quit(temp, currentWord)
+                        currentGame.set_status("Quit   ")
                         addToGame = True
                     break
                 else:
                     print('Please Enter Valid Input \n')
 
             if (addToGame):
-                game_list.append(game)
+                game_list.append(currentGame)
 
             if (game_quit):
                 break

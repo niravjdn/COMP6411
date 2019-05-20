@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="51719bff-c3cd-40b4-8c83-a01f0e8259f7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a1_40081268/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/a1_40081268/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/a1_40081268/guess.py" beforeDir="false" afterPath="$PROJECT_DIR$/a1_40081268/guess.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,8 +36,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/a1_40081268/guess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="107" column="55" selection-start-line="107" selection-start-column="55" selection-end-line="107" selection-end-column="55" />
+            <state relative-caret-position="176">
+              <caret line="91" column="40" lean-forward="true" selection-start-line="91" selection-start-column="40" selection-end-line="91" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -237,12 +235,12 @@
       <workItem from="1557847537765" duration="11247000" />
       <workItem from="1558115801417" duration="10979000" />
       <workItem from="1558197916630" duration="3232000" />
-      <workItem from="1558310561633" duration="108000" />
+      <workItem from="1558310561633" duration="291000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25566000" />
+    <option name="totallyTimeSpent" value="25749000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="23" width="1421" height="856" extended-state="0" />
@@ -302,12 +300,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/a1_40081268/guess.py</url>
-          <line>115</line>
+          <line>116</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/a1_40081268/guess.py</url>
-          <line>112</line>
+          <line>113</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -331,7 +329,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/COMP6411$Guess.coverage" NAME="Guess Coverage Results" MODIFIED="1558133488469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/A1" />
     <SUITE FILE_PATH="coverage/COMP6411$game.coverage" NAME="game Coverage Results" MODIFIED="1558200370956" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/a1_40081268" />
-    <SUITE FILE_PATH="coverage/COMP6411$Guess__1_.coverage" NAME="Guess (1) Coverage Results" MODIFIED="1558310670157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/a1_40081268" />
+    <SUITE FILE_PATH="coverage/COMP6411$Guess__1_.coverage" NAME="Guess (1) Coverage Results" MODIFIED="1558310833891" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/a1_40081268" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
@@ -387,8 +385,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/a1_40081268/guess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="107" column="55" selection-start-line="107" selection-start-column="55" selection-end-line="107" selection-end-column="55" />
+        <state relative-caret-position="176">
+          <caret line="91" column="40" lean-forward="true" selection-start-line="91" selection-start-column="40" selection-end-line="91" selection-end-column="40" />
         </state>
       </provider>
     </entry>

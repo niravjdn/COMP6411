@@ -89,6 +89,7 @@ class Guess:
                         break
                     # only wrong guess attemp is counted
                     currentGame.increase_guess_attemp()
+                    print("Wrong guess")
                 elif (choice == 't'):
                     print("The word is %s" % currentWord)
                     addToGame = True

@@ -87,4 +87,3 @@ class Game:
             if (target != "-"):
                 index_list.append(idx)
         return index_list
-print("a")

@@ -70,7 +70,7 @@ class Guess:
         while count < 100:
             count = count + 1
             currentWord = self.guessWord(word_list)
-            currentWord = 'laid'
+            print(currentWord)
             temp = "----"
             print("Current Guess: %s" % temp)
             currentGame = game.Game(count, currentWord)
@@ -103,6 +103,9 @@ class Guess:
                     # if all are discovered, mark its mark as zero
                     if ("-" not in temp):
                         game_over = True
+                        # All word guessed
+                        # set status success but score will be zero
+                        currentGame.set_status("Success")
                         currentGame.calculate_final_score(temp, currentWord)
                 elif (choice == 'q'):
                     game_quit = True

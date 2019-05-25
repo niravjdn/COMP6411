@@ -14,7 +14,7 @@
 ; (println    lines)
 ; (def lines-from-file (slurp "map.txt"))
 ; (println lines-from-file)
-(def lines (get-lines "map.txt"))
+(def lines (get-lines "map2.txt"))
 
 ; print start up screen
 (println "This is my challenge: \n")
@@ -53,7 +53,7 @@
             (if  (= (str (aget ar (dec i) j )) (str "@"))
                 (do
                         ; return true
-                        (println "a")
+                        (println "Returning true")
                         (def rt true)
                 )
             )
@@ -64,11 +64,12 @@
                     (if  (= rt  true)
                         (do
                                 ; return true
-                                (println "a")
+                                (println "Returning true")
                                 (def rt true)   
                         )
 
                         (do
+                            (println "setting !" (inc i) j)
                             (aset ar (dec i) j '!)
                         )                
 
@@ -84,7 +85,7 @@
             (if  (= (str (aget ar  i  (inc j) )) (str "@"))
                 (do
                         ; return true
-                        (println "a")
+                        (println "Returning true")
                         (def rt true)
                 )
             )
@@ -95,11 +96,12 @@
                     (if  (=  rt true)
                         (do
                                 ; return true
-                                (println "a")
+                                (println "Returning true")
                                 (def rt true) 
                         )
 
                         (do
+                            (println "setting !" (inc i) j)
                             (aset ar i (inc j) '!)
                         )                
 
@@ -115,7 +117,7 @@
             (if  (= (str (aget ar (inc i) j )) (str "@"))
                 (do
                         ; return true
-                        (println "a")
+                        (println "Returning true")
                         (def rt true) 
                 )
             )
@@ -126,11 +128,12 @@
                     (if  (= rt true)
                         (do
                                 ; return true
-                                (println "a")
+                                (println "Returning true")
                                 (def rt true)  
                         )
 
                         (do
+                            (println "setting !" (inc i) j)
                             (aset ar (inc i) j '!)
                         )                
 
@@ -146,7 +149,7 @@
             (if  (= (str (aget ar i (dec j) )) (str "@"))
                 (do
                         ; return true
-                        (println "a")
+                        (println "Returning true")
                         (def rt true)  
                 )
             )
@@ -157,11 +160,12 @@
                     (if  (= rt true)
                         (do
                                 ; return true
-                                (println "a")
+                                (println "Returning true")
                                 (def rt true) 
                         )
 
                         (do
+                            (println "setting !" (inc i) j)
                             (aset ar i (dec j) '!)
                         )                
 
@@ -186,6 +190,10 @@
 (println (aget ar 0 3))
 (println (aget ar 1 2))
 
+(if (= rt true) 
+    (println "Woo hoo, I found the treasure :-)")
+    (println "Uh oh, I could not find the treasure :-(")
+)
 
 ;print
 (println rows)

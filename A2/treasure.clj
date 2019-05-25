@@ -219,3 +219,9 @@
         )
         (println "")     
        (recur (+ x 1)))) 
+
+; REFERENCES
+; https://stackoverflow.com/questions/34425145/clojure-initialize-2d-vector
+; https://stackoverflow.com/questions/9047231/read-a-file-into-a-list-each-element-represents-one-line-of-the-file
+; https://stackoverflow.com/questions/52446937/clojure-multiple-tasks-in-if
+        

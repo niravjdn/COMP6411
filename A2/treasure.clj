@@ -24,10 +24,12 @@
 
 (def ar (to-array-2d lines))
 (def rows (alength ar))
-; (println rows)
+(println rows)
 (def cols (alength (aget ar 0)))
-; (println cols)
+(println cols)
 
+(def row-length (dec rows))
+(def col-length (dec cols))
 
 
 ;; function to iterate 
@@ -51,7 +53,7 @@
     
     ; first if
     ; (println "3")
-    (if (and (< i 7) (not= rt true));go up
+    (if (and (< i row-length) (not= rt true));go up
         ;go down
         (do
             (if  (= (str (aget ar (inc i) j )) (str "@"))
@@ -115,7 +117,7 @@
     )
 
     ; (println "2")
-    (if (and (< j 12) (not= rt true));go right
+    (if (and (< j col-length) (not= rt true));go right
         (do
             (if  (= (str (aget ar  i  (inc j) )) (str "@"))
                 (do

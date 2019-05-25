@@ -70,7 +70,7 @@ class Guess:
         while count < 100:
             count = count + 1
             currentWord = self.guessWord(word_list)
-            print(currentWord)
+            #print(currentWord)
             temp = "----"
             print("Current Guess: %s" % temp)
             currentGame = game.Game(count, currentWord)

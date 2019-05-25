@@ -33,23 +33,34 @@
 
 ;; function to iterate 
 
+; (defn findTreasure [i j]
+;        (when (< i 5)
+;        (println i)
+;        (recur  (inc i) (inc j) ))
+;        );when close
+;        )
+
 (defn findTreasure [i j]
-       (when (< i 5)
-       (println i)
-       (recur  (inc i) (inc j) )
-       );when close
-       )
-(def i 0)
-(def j 0)
-(aset ar 0 0 '5)
+    ;;travelled current node
+    (aset ar 0 0 '+)
+
+    ; first if
+    (if (> i 0);go up
+        (do
+            (if  (> i 0)
+                (do
+                        ; return true
+                        (println 'true)    
+                )
+            )
+                
+        )
+    )
+
+);method close
+
+(def i (atom 1))
+(def j (atom 0))
 (println (aget ar 0 0))
 (println (aget ar 0 1))
-(findTreasure i j)
-
-
-
-
-
-
-
-
+(findTreasure @i @j)

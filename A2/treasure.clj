@@ -42,11 +42,15 @@
 (defn findTreasure [i j]
     ;;travelled current node
     (aset ar i j '+)
-
+    ; (println (aget ar (inc i) 0))
+    ; (println (type (aget ar 0 0)))
+    ; (println (type '-'))
+    ; (println (= (str (aget ar (inc i) 0 )) (str "-")))
+    
     ; first if
     (if (> i 0);go up
         (do
-            (if  (= (aget ar (dec i) j)  "@")
+            (if  (= (str (aget ar (dec i) j )) (str "@"))
                 (do
                         ; return true
                         (println "a")
@@ -54,7 +58,7 @@
                 )
             )
 
-            (if  (= (aget ar (dec i) j)  "-")
+            (if  (= (str (aget ar (dec i) j )) (str "-"))
                 (do
                     (if  (= (findTreasure (dec i) j)  true)
                         (do
@@ -73,9 +77,10 @@
         )
     )
 
-    (if (< j 12);go down
+    (println "2")
+    (if (< j 12);go right
         (do
-            (if  (= (aget ar i (inc j))  "@")
+            (if  (= (str (aget ar  i  (inc j) )) (str "@"))
                 (do
                         ; return true
                         (println "a")
@@ -83,8 +88,9 @@
                 )
             )
 
-            (if  (= (aget ar i (inc j))  "-")
+            (if  (= (str (aget ar i (inc j) )) (str "-"))
                 (do
+                    
                     (if  (= (findTreasure  i (inc j))  true)
                         (do
                                 ; return true
@@ -102,13 +108,76 @@
         )
     )
 
+    (println "3")
+    (if (< i 7);go down
+        (do
+            (if  (= (str (aget ar (inc i) j )) (str "@"))
+                (do
+                        ; return true
+                        (println "a")
+                        (true? (= 1 1))   
+                )
+            )
+
+            (if  (= (str (aget ar (inc i) j )) (str "-"))
+                (do
+                    (if  (= (findTreasure (inc i) j)  true)
+                        (do
+                                ; return true
+                                (println "a")
+                                (true? (= 1 1))   
+                        )
+
+                        (do
+                            (aset ar (inc i) j '!)
+                        )                
+
+                     ) 
+                )
+            )
+        )
+    )
+
+    (println "4")
+    (if (> j 0);go left
+        (do
+            (if  (= (str (aget ar i (dec j) )) (str "@"))
+                (do
+                        ; return true
+                        (println "a")
+                        (true? (= 1 1))   
+                )
+            )
+
+            (if  (= (str (aget ar i (dec j) )) (str "-"))
+                (do
+                    (if  (= (findTreasure  i (dec j))  true)
+                        (do
+                                ; return true
+                                (println "a")
+                                (true? (= 1 1))   
+                        )
+
+                        (do
+                            (aset ar i (dec j) '!)
+                        )                
+
+                     ) 
+                )
+            )
+        )
+    )
+
+    
+
 );method close
 
 (def i (atom 0))
 (def j (atom 0))
-(println (aget ar 0 0))
-(println (aget ar 0 1))
+; (println (aget ar 0 0))
+; (println (aget ar 0 1))
 (println (findTreasure @i @j))
+
 (println (aget ar 0 0))
 (println (aget ar 0 1))
 (println (aget ar 0 2))

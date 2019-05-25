@@ -54,17 +54,18 @@
                 (do
                         ; return true
                         (println "a")
-                        (true? (= 1 1))   
+                        (def rt true)
                 )
             )
 
             (if  (= (str (aget ar (dec i) j )) (str "-"))
                 (do
-                    (if  (= (findTreasure (dec i) j)  true)
+                    (findTreasure (dec i) j)
+                    (if  (= rt  true)
                         (do
                                 ; return true
                                 (println "a")
-                                (true? (= 1 1))   
+                                (def rt true)   
                         )
 
                         (do
@@ -84,18 +85,18 @@
                 (do
                         ; return true
                         (println "a")
-                        (true? (= 1 1))   
+                        (def rt true)
                 )
             )
 
             (if  (= (str (aget ar i (inc j) )) (str "-"))
                 (do
-                    
-                    (if  (= (findTreasure  i (inc j))  true)
+                    (findTreasure  i (inc j))
+                    (if  (=  rt true)
                         (do
                                 ; return true
                                 (println "a")
-                                (true? (= 1 1))   
+                                (def rt true) 
                         )
 
                         (do
@@ -115,17 +116,18 @@
                 (do
                         ; return true
                         (println "a")
-                        (true? (= 1 1))   
+                        (def rt true) 
                 )
             )
 
             (if  (= (str (aget ar (inc i) j )) (str "-"))
                 (do
-                    (if  (= (findTreasure (inc i) j)  true)
+                    (findTreasure (inc i) j) 
+                    (if  (= rt true)
                         (do
                                 ; return true
                                 (println "a")
-                                (true? (= 1 1))   
+                                (def rt true)  
                         )
 
                         (do
@@ -145,17 +147,18 @@
                 (do
                         ; return true
                         (println "a")
-                        (true? (= 1 1))   
+                        (def rt true)  
                 )
             )
 
             (if  (= (str (aget ar i (dec j) )) (str "-"))
                 (do
-                    (if  (= (findTreasure  i (dec j))  true)
+                    (findTreasure  i (dec j)) 
+                    (if  (= rt true)
                         (do
                                 ; return true
                                 (println "a")
-                                (true? (= 1 1))   
+                                (def rt true) 
                         )
 
                         (do
@@ -176,9 +179,24 @@
 (def j (atom 0))
 ; (println (aget ar 0 0))
 ; (println (aget ar 0 1))
-(println (findTreasure @i @j))
+(findTreasure @i @j)
 
 (println (aget ar 0 0))
 (println (aget ar 0 1))
-(println (aget ar 0 2))
+(println (aget ar 0 3))
+(println (aget ar 1 2))
 
+
+;print
+(println rows)
+(loop [x 0]
+    (when (< x rows)
+       
+        (loop [y 0]
+            (when (< y cols)
+                (print (aget ar x y))
+                (recur (+ y 1))
+            )    
+        )
+        (println "")     
+       (recur (+ x 1)))) 

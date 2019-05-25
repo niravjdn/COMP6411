@@ -16,21 +16,29 @@
 ; (println lines-from-file)
 (def lines (get-lines "map.txt"))
 
+; print start up screen
+(println "This is my challenge: \n")
+(doseq [item lines]
+    (println item))
+
+
 (def ar (to-array-2d lines))
 (def rows (alength ar))
 (println rows)
 (def cols (alength (aget ar 0)))
 (println cols)
 
+
+
+
 ;; function to iterate 
 
 (defn findTreasure [i j]
-    (loop [i 0]
        (when (< i 5)
        (println i)
-       (recur  ( (inc i) (inc j)))
+       (recur  (inc i) (inc j) )
+       );when close
        )
-       ))
 (def i 0)
 (def j 0)
 (aset ar 0 0 '5)

@@ -33,6 +33,9 @@ public class Main {
 		System.out.println("** Customers and loan objectives **");
 		for(Customer c : customers) {
 			System.out.println(c);
+			
+			//set all banks by default in each customer list
+			c.setBankList(banks);
 		}
 
 		System.out.println("** Banks and financial resources **");
@@ -50,6 +53,12 @@ public class Main {
 			int amountToRequest = random.nextInt(50) + 1;
 			Bank randomBank = banks.get(random.nextInt(numOfBanks));
 			int sleepTime = random.nextInt(91)+10;
+			
+			//wait for the sleepTime
+			//choose random bank and request with random amount
+			
+			
+			
 		}while(controller);
 		
 		
@@ -89,15 +98,20 @@ public class Main {
 class Customer {
 	String name;
 	int balance;
-	
+	ArrayList<Bank> banksList;
 	public Customer(String name, int balance) {
 		this.name = name;
 		this.balance = balance;
+		
 	}
 
 	@Override
 	public String toString() {
 		return name+": "+balance;
+	}
+	
+	public void setBankList(ArrayList<Bank> banksList) {
+		this.banksList = new ArrayList<Bank>(banksList);
 	}
 }
 
@@ -110,8 +124,22 @@ class Bank {
 		this.availableBalance = balance;
 	}
 	
+	public boolean withDraw(Customer c,int amount) {
+		if((availableBalance - amount) >= 0) {
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return name+": "+availableBalance;
 	}
 }
+
+
+
+
+
+
+//Reference : https://www.geeksforgeeks.org/method-block-synchronization-java/

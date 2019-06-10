@@ -1,15 +1,17 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class Main {
+	static ArrayList<Customer> customers;
+	static ArrayList<Bank> banks;
+	static boolean controller = true;
 	public static void main(String[] args) throws IOException {
 		ArrayList<String> customerLines = readAndReturnLines("customers.txt");
 		ArrayList<String> banksLines = readAndReturnLines("banks.txt");
-		System.out.println(customerLines);
-		System.out.println(banksLines);
-		ArrayList<Customer> customers = new ArrayList<Customer>();
-		ArrayList<Bank> banks = new ArrayList<Bank>();
+		customers = new ArrayList<Customer>();
+		banks = new ArrayList<Bank>();
 		
 		for(String line : customerLines) {
 			String currentLine = line.replace("{", "");
@@ -24,9 +26,49 @@ public class Main {
 			String[] ar = currentLine.split(",");
 			banks.add(new Bank(ar[0], Integer.parseInt(ar[1])));
 		}
+
+		int numOfCustomers = customers.size();
+		int numOfBanks = banks.size();
 		
-		System.out.println(customers);
-		System.out.println(banks);
+		System.out.println("** Customers and loan objectives **");
+		for(Customer c : customers) {
+			System.out.println(c);
+		}
+
+		System.out.println("** Banks and financial resources **");
+		for(Bank b : banks) {
+			System.out.println(b);
+		}
+		
+		
+		//deal with thread and contact bank
+		Random random = new Random();
+		
+		//reference : https://stackoverflow.com/questions/20389890/generating-a-random-number-between-1-and-10-java
+		do {
+			controller = checkController();
+			int amountToRequest = random.nextInt(50) + 1;
+			Bank randomBank = banks.get(random.nextInt(numOfBanks));
+			int sleepTime = random.nextInt(91)+10;
+		}while(controller);
+		
+		
+	}
+
+	private static boolean checkController() {
+		for(Customer c : customers) {
+			if(c.balance != 0) {
+				return false;
+			}
+		}
+		
+		for(Bank b : banks) {
+			if(b.availableBalance != 0) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 	public static ArrayList<String> readAndReturnLines(String fileName) throws IOException {
@@ -55,7 +97,7 @@ class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [name=" + name + ", balance=" + balance + "]";
+		return name+": "+balance;
 	}
 }
 
@@ -70,6 +112,6 @@ class Bank {
 	
 	@Override
 	public String toString() {
-		return "Bank [name=" + name + ", availableBalance=" + availableBalance + "]";
+		return name+": "+availableBalance;
 	}
 }

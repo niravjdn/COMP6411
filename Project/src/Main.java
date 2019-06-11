@@ -157,6 +157,8 @@ class Customer extends Thread {
 			}
 			
 			int amountToRequest = random.nextInt(50) + 1;
+			
+			//Nirav Remove this
 			if((loanAmount - balance) < 50) {
 				amountToRequest = random.nextInt(loanAmount - balance) + 1;
 			}

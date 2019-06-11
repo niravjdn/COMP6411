@@ -1,13 +1,18 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
+
+import sun.util.logging.resources.logging;
 
 public class Main {
 	static ArrayList<Customer> customers;
 	static ArrayList<Bank> banks;
 	static boolean controller = true;
+	static boolean[] recordPrint;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		ArrayList<String> customerLines = readAndReturnLines("customers.txt");
 		ArrayList<String> banksLines = readAndReturnLines("banks.txt");
 		customers = new ArrayList<Customer>();
@@ -29,19 +34,13 @@ public class Main {
 
 		int numOfCustomers = customers.size();
 		int numOfBanks = banks.size();
+		recordPrint = new boolean[numOfCustomers];
 
 		System.out.println("** Customers and loan objectives **");
-		for (Customer c : customers) {
-			System.out.println(c);
-
-			// set all banks by default in each customer list
-			c.setBankList(banks);
-		}
+		printCustomers();
 
 		System.out.println("** Banks and financial resources **");
-		for (Bank b : banks) {
-			System.out.println(b);
-		}
+		printBanks();
 
 		// reference :
 		// https://stackoverflow.com/questions/20389890/generating-a-random-number-between-1-and-10-java
@@ -52,11 +51,49 @@ public class Main {
 //			// choose random bank and request with random amount
 //
 //		} while (controller);
-		
-		for(Customer c : customers) {
+
+		for (Customer c : customers) {
 			c.start();
 		}
 
+		for (Thread t : customers) {
+			// waits for this thread to die
+			t.join();
+		}
+		System.out.println("All the threads are completed by now");
+		printCustomersAfterProgramIsDone();
+
+	}
+
+	private static void printBanks() {
+		for (Bank b : banks) {
+			System.out.println(b);
+		}
+	}
+
+	private static void printCustomersAfterProgramIsDone() {
+		for (Customer c : customers) {
+			//System.out.println(c + " balance : " + c.balance);
+			
+			if(c.loanAmount == c.balance) {
+				System.out.println(c.name+" has reached the objective of "+c.loanAmount+" dollar(s). Woo Hoo!");
+			}else{
+				System.out.println(c.name+" was only able to borrow "+c.balance+" dollar(s). Boo Hoo!");
+			}
+		}
+		
+		for (Bank b : banks) {
+			System.out.println(b.name+" has "+b.availableBalance+" dollar(s) remaining.");
+		}
+	}
+
+	private static void printCustomers() {
+		for (Customer c : customers) {
+			System.out.println(c);
+
+			// set all banks by default in each customer list
+			c.setBankList(banks);
+		}
 	}
 
 	private static boolean checkController() {
@@ -95,7 +132,8 @@ class Customer extends Thread {
 	int loanAmount;
 	int balance = 0;
 	ArrayList<Bank> banksList;
-
+	Random random = new Random();
+	
 	public Customer(String name, int balance) {
 		this.name = name;
 		this.loanAmount = balance;
@@ -110,49 +148,62 @@ class Customer extends Thread {
 	@Override
 	public void run() {
 		boolean controller = true;
-		while(controller) {
-			
-			controller = checkController();
+		while (controller) {
 			// deal with thread and contact bank
-			Random random = new Random();
-
+			
+			
+			if(banksList.isEmpty()) {
+				break;
+			}
+			
 			int amountToRequest = random.nextInt(50) + 1;
+			if((loanAmount - balance) < 50) {
+				amountToRequest = random.nextInt(loanAmount - balance) + 1;
+			}
+			
 			Bank randomBank = banksList.get(random.nextInt(banksList.size()));
 			int sleepTime = random.nextInt(91) + 10;
-			System.out.println(name+" requests a loan of "+amountToRequest+" dollar(s) from "+ randomBank.name +".");
-			//do operation like wait and make a call
+			System.out.println(
+					name + " requests a loan of " + amountToRequest + " dollar(s) from " + randomBank.name + ".");
+			// do operation like wait and make a call
 			try {
 				Thread.sleep(sleepTime);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 			boolean vr = randomBank.withDraw(this, amountToRequest);
-			if(vr) {
-				System.out.println(randomBank.name+" approves a loan of "+amountToRequest+" dollars from "+name);
+			if (vr) {
+				System.out
+						.println(randomBank.name + " approves a loan of " + amountToRequest + " dollars from " + name);
+				
 				randomBank.availableBalance -= amountToRequest;
-				this.loanAmount -= amountToRequest;
-			}else {
-				System.out.println(randomBank.name+" denies a loan of "+amountToRequest+" dollars from "+name);
-				//print deny remove bank from list
+				this.balance += amountToRequest;
+			} else {
+				System.out.println(randomBank.name + " denies a loan of " + amountToRequest + " dollars from " + name);
+				banksList.remove(randomBank);
 				// check if bank requirement goes to negative
 			}
+
+			controller = checkController();
 		}
 	}
 
 	private boolean checkController() {
-		
-		
+		if (loanAmount == balance) {
+			return false;
+		}
+
 		for (Bank b : banksList) {
 			if (b.availableBalance != 0) {
 				return true;
 			}
 		}
-		//continue looping
+		// continue looping
 		return false;
 	}
-	
+
 	public void setBankList(ArrayList<Bank> banksList) {
 		this.banksList = new ArrayList<Bank>(banksList);
 	}
@@ -181,3 +232,5 @@ class Bank {
 }
 
 //Reference : https://www.geeksforgeeks.org/method-block-synchronization-java/
+
+//Reference : Thread Wait Reference

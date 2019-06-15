@@ -21,11 +21,14 @@ start() ->
 	Bank_list = lists:map(fun ({K, V}) -> K end, Banks),
 	io:format("~p~n", [Bank_list]),
 		
+	
 
 	maps:fold(fun(K, V, ok) ->
     	ets:insert(table_3, {K,V}),
-%% call usin P_ID ! {} something like this 
- 		io:format("")
+%% call usin P_ID ! {} something like this
+		PR_ID = spawn (bank, performBankOperation, [a, ab, ab, ab, ab]), 
+		register(K, PR_ID),
+ 		io:format("where is ~w ~n",[whereis(K)])
 		end,ok, F_list_banks),
 
 	%bank list is create, now get random bank from it and do stuff	
@@ -37,10 +40,13 @@ start() ->
 		P_ID = spawn (customer, executeCustomer, [F_list, K, Bank_list]),
 %% call usin P_ID ! {} something like this
 %% name and process id 	 
+%% 		io:format("Registering"),
 		register(K, P_ID),
+		K ! {customerRequest,F_list, K, Bank_list},
 %% 		io:format("~w: PID ~n",[P_ID]),
-		customer:receviedForCustomer(P_ID)
-%% 		io:format("~w: this  ~w.~n",[K,V])
+%% 		customer:receviedForCustomer(P_ID)
+%% 		io:format("~w: this  ~w.~n",[K,V]),
+		io:format("")
 		end,ok, F_list),
 
 	io:format("finalll ~w",[F_list]),

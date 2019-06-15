@@ -77,7 +77,7 @@ executeCustomerFirst(MapOfCustomer, CurrentCustomer, BankList) ->
 				timer:sleep(SleepTime),
 				%call bank process that performs operation on random bank and currentCustomer
 				PR_ID = spawn (bank, performBankOperation, [CurrentCustomer, Randombank, RandomAmount, MapOfCustomer, BankList]),
-				PR_ID ! {debitBank,CurrentCustomer, Randombank, RandomAmount, MapOfCustomer, BankList}
+				PR_ID ! {self(),CurrentCustomer, Randombank, RandomAmount, MapOfCustomer, BankList}
 %% 				receviedForCustomer(PR_ID)
 		end.
 

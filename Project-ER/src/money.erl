@@ -25,7 +25,7 @@ start() ->
 	maps:fold(fun(K, V, ok) ->
     	ets:insert(table_3, {K,V}),
 %% call usin P_ID ! {} something like this 
- 		io:format("~w: bank storage  ~w.~n",[K,V])
+ 		io:format("")
 		end,ok, F_list_banks),
 
 	%bank list is create, now get random bank from it and do stuff	
@@ -33,9 +33,12 @@ start() ->
 	maps:fold(fun(K, V, ok) ->
     	ets:insert(table_1, {K,V}),
 		ets:insert(table_2, {K,V}),
+		% map of customer, custname, banklist for random
 		P_ID = spawn (customer, executeCustomer, [F_list, K, Bank_list]),
-%% call usin P_ID ! {} something like this 
-		io:format("~w: PID ~n",[P_ID]),
+%% call usin P_ID ! {} something like this
+%% name and process id 	 
+		register(K, P_ID),
+%% 		io:format("~w: PID ~n",[P_ID]),
 		customer:receviedForCustomer(P_ID)
 %% 		io:format("~w: this  ~w.~n",[K,V])
 		end,ok, F_list),

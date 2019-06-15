@@ -6,7 +6,7 @@
 
 -import(lists,[nth/2]).
 -export([executeCustomer/3,receviedForCustomer/1]).
--define(TIMEOUT,1500).
+-define(TIMEOUT,2500).
  
 
 %% ====================================================================
@@ -15,11 +15,13 @@
 
 receviedForCustomer(M_id) ->    
     receive
-		{intro,Sender,Receiver,Ms} ->
-			io:format("~w received intro message from ~w [~w]~n",[Receiver,Sender,Ms]),
-			receviedForCustomer(M_id);
-		{reply,Sender,Receiver,Ms} ->
-			io:format("~w received reply message from ~w [~w]~n",[Sender,Receiver,Ms]),
+		{approved, CurrentCustomer, BankName, Amount, MapOfCustomer, BankList} ->
+			io:format("Approved-------------------"),
+			%call something
+ 			receviedForCustomer(M_id);
+		{denied, CurrentCustomer, BankName, Amount, MapOfCustomer, BankList} ->
+			io:format("Denied"),
+			%call something
 			receviedForCustomer(M_id)
 
 		after ?TIMEOUT -> io:format("TImeout ~n")			
@@ -48,11 +50,10 @@ executeCustomer(MapOfCustomer, CurrentCustomer, BankList) ->
 			SleepTime = rand:uniform(90) + 10,
 			timer:sleep(SleepTime),
 			%call bank process that performs operation on random bank and currentCustomer
-			spawn (bank, performBankOperation, [CurrentCustomer, Randombank, RandomAmount])			
+			spawn (bank, performBankOperation, [CurrentCustomer, Randombank, RandomAmount, MapOfCustomer, BankList])			
 	end.
 
 %BankList is a local list of bank for particular customer.
-%% add receive quote here
 %% call bank here until some point and then process called here will call receivedForCustomer
 
 	

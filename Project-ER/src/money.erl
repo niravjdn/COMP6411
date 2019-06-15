@@ -1,7 +1,6 @@
 -module(money). 
 -export([start/0]). 
 
-
 start() ->
 	{ok, Customers} = file:consult("customers.txt"),
 %%     io:format("~w~n", [Customers]),

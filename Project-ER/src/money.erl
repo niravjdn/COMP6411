@@ -1,6 +1,6 @@
 -module(money). 
 -export([start/0,printStuff/2, printFinalOutput/2]). 
--define(TIMEOUT,2500).
+-define(TIMEOUT,3000).
 
 start() ->
 	{ok, Customers} = file:consult("customers.txt"),
@@ -68,7 +68,7 @@ start() ->
 printStuff(Customer_list, Bank_list) ->    
     receive
 		{finished,Message} ->
- 			io:format("~n ~n ~n ~n ~n ~n ~n ~n ~n ~n ~n ~n"),
+%%  			io:format("~n ~n ~n ~n ~n ~n ~n ~n ~n ~n ~n ~n"),
 			printStuff(Customer_list, Bank_list)
 					
 		after ?TIMEOUT ->

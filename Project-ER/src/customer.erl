@@ -52,10 +52,10 @@ executeCustomer(Master_ID, MapOfCustomer, CurrentCustomer, BankList) ->
 			io:format("~w denies a loan of ~w dollars from ~w ~n",[Bank, RandomAmount, CurrentCustomer]),
 			BankList2 = lists:delete(Bank, BankList),
 			LengthOfList = length(BankList2),
+			Master_ID ! {finished, "Finished"},
 			if
 				LengthOfList >= 1 ->	
 					executeCustomerFirst(MapOfCustomer, CurrentCustomer, BankList2),
-					Master_ID ! {finished, "Finished"},
 					executeCustomer(Master_ID, MapOfCustomer, CurrentCustomer, BankList)
 			end;
 		terminate ->
@@ -82,12 +82,13 @@ executeCustomerFirst(MapOfCustomer, CurrentCustomer, BankList) ->
 %% 				io:fwrite("~p~n", Randombank),
 				io:format("~w requests a loan of  ~w dollar(s) from ~w ~n",[CurrentCustomer, RandomAmount , Randombank]),
 				%now call bank function and wait for receive to call this another time or quit
-				SleepTime = rand:uniform(90) + 10,
+				SleepTime = rand:uniform(900) + 10,
 %% 				io:format("sleepTimee ~w ~n",[SleepTime]),
 				timer:sleep(SleepTime),
 				%call bank process that performs operation on random bank and currentCustomer
-				PR_ID = spawn (bank, performBankOperation, [CurrentCustomer, Randombank, RandomAmount, MapOfCustomer, BankList]),
-				PR_ID ! {self(),CurrentCustomer, Randombank, RandomAmount, MapOfCustomer, BankList}
+%% 				PR_ID = spawn (bank, performBankOperation, [CurrentCustomer, Randombank, RandomAmount, MapOfCustomer, BankList]),
+%% 				PR_ID ! {self(),CurrentCustomer, Randombank, RandomAmount, MapOfCustomer, BankList}
+				bank:performBankOperation2(CurrentCustomer, Randombank, RandomAmount, MapOfCustomer, BankList)	
 %% 				receviedForCustomer(PR_ID)
 		end.
 

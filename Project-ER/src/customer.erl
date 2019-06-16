@@ -5,7 +5,7 @@
 -module(customer).
 
 -import(lists,[nth/2]).
--export([executeCustomer/3,receviedForCustomer/1, executeCustomerFirst/3]).
+-export([executeCustomer/4,receviedForCustomer/1, executeCustomerFirst/3]).
 -define(TIMEOUT,2500).
  
 
@@ -27,22 +27,25 @@ receviedForCustomer(M_id) ->
 		after ?TIMEOUT -> io:format("TImeout ~n")			
 	end.
 
-executeCustomer(MapOfCustomer, CurrentCustomer, BankList) ->
+executeCustomer(Master_ID, MapOfCustomer, CurrentCustomer, BankList) ->
 	receive
 		{customerRequest,MapOfCustomer, CurrentCustomer, BankList} ->
 			executeCustomerFirst(MapOfCustomer, CurrentCustomer, BankList),
-			executeCustomer(MapOfCustomer, CurrentCustomer, BankList);
+			Master_ID ! {finished, "Finished"},
+			executeCustomer(Master_ID, MapOfCustomer, CurrentCustomer, BankList);
 			
 		
 		{approved,MapOfCustomer,CurrentCustomer, Bank, RandomAmount, BankList} ->
 			io:format("~w approveeeeeeeeeeee a loan of ~w dollars from ~w ~n",[Bank, RandomAmount, CurrentCustomer]),
 			executeCustomerFirst(MapOfCustomer, CurrentCustomer, BankList),
-			executeCustomer(MapOfCustomer, CurrentCustomer, BankList);
+			Master_ID ! {finished, "Finished"},
+			executeCustomer(Master_ID, MapOfCustomer, CurrentCustomer, BankList);
 		
 		{nirav, ABC} ->
 			io:format("nirav"),
 			executeCustomerFirst(MapOfCustomer, CurrentCustomer, BankList),
-			executeCustomer(MapOfCustomer, CurrentCustomer, BankList);
+			Master_ID ! {finished, "Finished"},
+			executeCustomer(Master_ID, MapOfCustomer, CurrentCustomer, BankList);
 		
 		{denied,MapOfCustomer,CurrentCustomer, Bank, RandomAmount, BankList} ->
 			% delete from table
@@ -52,8 +55,11 @@ executeCustomer(MapOfCustomer, CurrentCustomer, BankList) ->
 			if
 				LengthOfList >= 1 ->	
 					executeCustomerFirst(MapOfCustomer, CurrentCustomer, BankList2),
-					executeCustomer(MapOfCustomer, CurrentCustomer, BankList)
-			end
+					Master_ID ! {finished, "Finished"},
+					executeCustomer(Master_ID, MapOfCustomer, CurrentCustomer, BankList)
+			end;
+		terminate ->
+			io:write("Terminated")
 	end.
 
 executeCustomerFirst(MapOfCustomer, CurrentCustomer, BankList) ->

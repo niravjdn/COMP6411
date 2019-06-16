@@ -1,3 +1,5 @@
+% Nirav Patel - 40081268
+
 -module(money). 
 -export([start/0,printStuff/2, printFinalOutput/2]). 
 -define(TIMEOUT,1500).

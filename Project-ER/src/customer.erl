@@ -1,5 +1,4 @@
-%% @author Nirav
-%% @doc @todo Add description to customer.
+% Nirav Patel - 40081268
 
 
 -module(customer).

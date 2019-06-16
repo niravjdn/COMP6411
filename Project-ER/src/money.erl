@@ -17,13 +17,16 @@ start() ->
  	ets:new(table_1, [named_table, protected, set, {keypos, 1}]),
 	ets:new(table_2, [named_table, protected, set, {keypos, 1}]),
 	ets:new(table_3, [named_table, protected, set, {keypos, 1}]),
-
+	
 	Bank_list = lists:map(fun ({K, V}) -> K end, Banks),
 	io:format("~p~n", [Bank_list]),
 		
 
 	maps:fold(fun(K, V, ok) ->
     	ets:insert(table_3, {K,V}),
+		P_ID = spawn (banks, performBankOperation, [K, V]),
+		register(K, P_ID),
+		
 %% call usin P_ID ! {} something like this 
  		io:format("")
 		end,ok, F_list_banks),
@@ -34,13 +37,15 @@ start() ->
     	ets:insert(table_1, {K,V}),
 		ets:insert(table_2, {K,V}),
 		% map of customer, custname, banklist for random
-		P_ID = spawn (customer, executeCustomer, [F_list, K, Bank_list]),
+		P_ID = spawn (customer, createCustomer, [K, V, Bank_list]),
 %% call usin P_ID ! {} something like this
 %% name and process id 	 
+
 		register(K, P_ID),
+		io:format("registering ~n"),
+		K ! {self(),{requestBank, 10}}, 
 %% 		io:format("~w: PID ~n",[P_ID]),
-		customer:receviedForCustomer(P_ID)
-%% 		io:format("~w: this  ~w.~n",[K,V])
+ 		io:format("~w: this  ~w.~n",[K,V])
 		end,ok, F_list),
 
 	io:format("finalll ~w",[F_list]),

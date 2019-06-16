@@ -19,7 +19,7 @@ performBankOperation(Bank, Bal) ->
 				RandomAmount =< Bal ->
 %% 						io:format("~w approves a loan of ~w dollars from ~w ~n",[Bank, RandomAmount, Name]),
 						Bal2 = Bal - RandomAmount,
-						From ! {self(), {acceptFromBank, RandomAmount}},
+						From ! {self(), {acceptFromBank, Bank, RandomAmount}},
 						performBankOperation(Bank, Bal2)
 			end
 	end.

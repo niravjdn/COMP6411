@@ -5,7 +5,7 @@
 -module(customer).
 
 -import(lists,[nth/2]).
--export([executeCustomer/3,receviedForCustomer/1]).
+-export([executeCustomer/3,receviedForCustomer/1, createCustomer/3]).
 -define(TIMEOUT,2500).
  
 
@@ -56,7 +56,8 @@ executeCustomer(MapOfCustomer, CurrentCustomer, BankList) ->
 
 createCustomer(CustomerName, Bal, BankList) ->
     receive
-        {From, {requestBank}} ->
+        {From, {requestBank, amount}} ->
+			io:format("Hello here"),
 			LengthOfList = length(BankList),
 			if 
 			Bal >= 50 -> 
@@ -88,7 +89,8 @@ createCustomer(CustomerName, Bal, BankList) ->
 				createCustomer(CustomerName, Bal, lists:delete(BankName, BankList))
 			end;
 			
-		{From, {acceptFromBank, AmountDebited}} ->
+		{From, {acceptFromBank, BankName, AmountDebited}} ->
+			io:format("~w approves a loan of ~w dollars from ~w ~n",[BankName, AmountDebited, CustomerName]),
 			createCustomer(CustomerName, Bal - AmountDebited, BankList);
 			
 		  %print

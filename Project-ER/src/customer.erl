@@ -47,9 +47,13 @@ executeCustomer(MapOfCustomer, CurrentCustomer, BankList) ->
 		{denied,MapOfCustomer,CurrentCustomer, Bank, RandomAmount, BankList} ->
 			% delete from table
 			io:format("~w denies a loan of ~w dollars from ~w ~n",[Bank, RandomAmount, CurrentCustomer]),
-			executeCustomerFirst(MapOfCustomer, CurrentCustomer, BankList),
-			executeCustomer(MapOfCustomer, CurrentCustomer, BankList)
-			
+			BankList2 = lists:delete(Bank, BankList),
+			LengthOfList = length(BankList2),
+			if
+				LengthOfList >= 1 ->	
+					executeCustomerFirst(MapOfCustomer, CurrentCustomer, BankList2),
+					executeCustomer(MapOfCustomer, CurrentCustomer, BankList)
+			end
 	end.
 
 executeCustomerFirst(MapOfCustomer, CurrentCustomer, BankList) ->

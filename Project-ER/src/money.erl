@@ -14,9 +14,9 @@ start() ->
 	F2_list = maps:from_list(Customers),
     Method_ID = self(),
 	% iterate hashmap
- 	ets:new(table_1, [named_table, protected, set, {keypos, 1}]),
-	ets:new(table_2, [named_table, protected, set, {keypos, 1}]),
-	ets:new(table_3, [named_table, protected, set, {keypos, 1}]),
+ 	ets:new(table_1, [named_table, public, set, {keypos, 1}]),
+	ets:new(table_2, [named_table, public, set, {keypos, 1}]),
+	ets:new(table_3, [named_table, public, set, {keypos, 1}]),
 
 	Bank_list = lists:map(fun ({K, V}) -> K end, Banks),
 	io:format("~p~n", [Bank_list]),

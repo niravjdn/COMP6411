@@ -1,6 +1,6 @@
 -module(money). 
 -export([start/0,printStuff/2, printFinalOutput/2]). 
--define(TIMEOUT,1500).
+-define(TIMEOUT,2500).
 
 start() ->
 	{ok, Customers} = file:consult("customers.txt"),
@@ -81,13 +81,13 @@ printStuff(Customer_list, Bank_list) ->
 printFinalOutput(Customer_list, Bank_list) ->
 	lists:foreach(fun (Item) ->
 %% 		io:format("~w ~n",[Item]),
-		[{Name,Req}] = ets:lookup(table_2, Item),
-		[{Name2,Req2}] = ets:lookup(table_1, Item),
+		[{Name1,Req1}] = ets:lookup(table_1, Item),
+		[{Name2,Req2}] = ets:lookup(table_2, Item),
 		if
-			Req == 0 ->
-				io:format("~w has reached the objective of ~w dollar(s). Woo Hoo! ~n",[Name2, Req2]);
+			Req2 == 0 ->
+				io:format("~w has reached the objective of ~w dollar(s). Woo Hoo! ~n",[Name1, Req1]);
 			true ->
-				io:format("~w was only able to borrow ~w dollar(s). Boo Hoo! ~n",[Name2, Req])
+				io:format("~w was only able to borrow ~w dollar(s). Boo Hoo! ~n",[Name2, Req1-Req2])
 		end
 	end, Customer_list),
 

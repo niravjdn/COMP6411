@@ -30,6 +30,14 @@ performBankOperation(CurrentCustomer, Randombank, RandomAmount, MapOfCustomer, B
 %% 					io:format("~w aaaaaapproves a loan of ~w dollars from ~w ~n",[Bank, RandomAmount, Name]),
 %% 					io:format("~w ~n",[Name]),
 %%  					io:format("~w where is ~n",[whereis(Name)]),
+
+%% Nirav debug here 					
+%% 					if
+%% 						whereis(Name) == true ->
+%% 							io:format("~n ~n ~n ~n ~n ~n ~n ~n ~n ~n ~n ~n ~n ")
+%% 					end,
+
+					
  					Name ! {approved, MapOfCustomer, CurrentCustomer, Bank, RandomAmount, BankList}
 					% call receive
 					% call customer receive

@@ -1,6 +1,6 @@
 -module(money). 
 -export([start/0,printStuff/2, printFinalOutput/2]). 
--define(TIMEOUT,3000).
+-define(TIMEOUT,1500).
 
 start() ->
 	{ok, Customers} = file:consult("customers.txt"),

@@ -5,27 +5,13 @@
 -module(customer).
 
 -import(lists,[nth/2]).
--export([executeCustomer/4,receviedForCustomer/1, executeCustomerFirst/3]).
--define(TIMEOUT,2500).
+-export([executeCustomer/4, executeCustomerFirst/3]).
  
 
 %% ====================================================================
 %% Internal functions
 %% ====================================================================
 
-receviedForCustomer(M_id) ->    
-    receive
-		{approved, CurrentCustomer, BankName, Amount, MapOfCustomer, BankList} ->
-			io:format("Approved-------------------"),
-			%call something
- 			receviedForCustomer(M_id);
-		{denied, CurrentCustomer, BankName, Amount, MapOfCustomer, BankList} ->
-			io:format("Denied"),
-			%call something
-			receviedForCustomer(M_id)
-
-		after ?TIMEOUT -> io:format("TImeout ~n")			
-	end.
 
 executeCustomer(Master_ID, MapOfCustomer, CurrentCustomer, BankList) ->
 	receive
@@ -52,11 +38,12 @@ executeCustomer(Master_ID, MapOfCustomer, CurrentCustomer, BankList) ->
 			io:format("~w denies a loan of ~w dollars from ~w ~n",[Bank, RandomAmount, CurrentCustomer]),
 			BankList2 = lists:delete(Bank, BankList),
 			LengthOfList = length(BankList2),
+%% 			io:format("~w Length ~n ",[LengthOfList]),
 			Master_ID ! {finished, "Finished"},
 			if
 				LengthOfList >= 1 ->	
 					executeCustomerFirst(MapOfCustomer, CurrentCustomer, BankList2),
-					executeCustomer(Master_ID, MapOfCustomer, CurrentCustomer, BankList)
+					executeCustomer(Master_ID, MapOfCustomer, CurrentCustomer, BankList2)
 			end;
 		terminate ->
 			io:write("Terminated")

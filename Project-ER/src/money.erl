@@ -43,7 +43,7 @@ start() ->
 
 	%bank list is create, now get random bank from it and do stuff	
 	Master_ID = self(),
-	
+	io:format("~n"),
 	maps:fold(fun(K, V, ok) ->
     	ets:insert(table_1, {K,V}),
 		ets:insert(table_2, {K,V}),
@@ -68,7 +68,7 @@ start() ->
 printStuff(Customer_list, Bank_list) ->    
     receive
 		{finished,Message} ->
-%% 			io:format("~n ~n ~n ~n ~n ~n ~n ~n ~n ~n ~n ~n"),
+ 			io:format("~n ~n ~n ~n ~n ~n ~n ~n ~n ~n ~n ~n"),
 			printStuff(Customer_list, Bank_list)
 					
 		after ?TIMEOUT ->

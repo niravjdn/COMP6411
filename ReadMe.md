@@ -1,8 +1,6 @@
 ## COMP 6411
 ### This is a repository containing assignments and project for COMP 6411
 
-### Reference
-
 ### Assignment 1 - The Great Guessing Game (python)
 
 ###### References

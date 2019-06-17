@@ -49,7 +49,7 @@ executeCustomer(Master_ID, MapOfCustomer, CurrentCustomer, BankList) ->
 	end.
 
 executeCustomerFirst(MapOfCustomer, CurrentCustomer, BankList) ->
-		[{_,Bal}] = ets:lookup(table_2, CurrentCustomer),
+		[{_,Bal}] = ets:lookup(nirav_table_c2, CurrentCustomer),
 %% 		io:format("balance ~w ~n",[Bal]),
 		LengthOfList = length(BankList),
 %% 		io:format("length - ~w ~n",[LengthOfList]),

@@ -18,9 +18,9 @@ start() ->
 	F2_list = maps:from_list(Customers),
     Method_ID = self(),
 	% iterate hashmap
- 	ets:new(table_1, [named_table, public, set, {keypos, 1}]),
-	ets:new(table_2, [named_table, public, set, {keypos, 1}]),
-	ets:new(table_3, [named_table, public, set, {keypos, 1}]),
+ 	ets:new(nirav_table_c1, [named_table, public, set, {keypos, 1}]),
+	ets:new(nirav_table_c2, [named_table, public, set, {keypos, 1}]),
+	ets:new(nirav_table_b, [named_table, public, set, {keypos, 1}]),
 
 	Customer_list = lists:map(fun ({K, V}) -> K end, Customers),
 	Bank_list = lists:map(fun ({K, V}) -> K end, Banks),
@@ -36,7 +36,7 @@ start() ->
 	io:format("** Banks and financial resources ~n"),
 	
 	maps:fold(fun(K, V, ok) ->
-    	ets:insert(table_3, {K,V}),
+    	ets:insert(nirav_table_b, {K,V}),
 %% call usin P_ID ! {} something like this
 		PR_ID = spawn (bank, performBankOperation, [a, ab, ab, ab, ab]), 
 		register(K, PR_ID),
@@ -47,8 +47,8 @@ start() ->
 	Master_ID = self(),
 	io:format("~n"),
 	maps:fold(fun(K, V, ok) ->
-    	ets:insert(table_1, {K,V}),
-		ets:insert(table_2, {K,V}),
+    	ets:insert(nirav_table_c1, {K,V}),
+		ets:insert(nirav_table_c2, {K,V}),
 		% map of customer, custname, banklist for random
 		
 		P_ID = spawn (customer, executeCustomer, [Master_ID, F_list, K, Bank_list]),
@@ -83,8 +83,8 @@ printStuff(Customer_list, Bank_list) ->
 printFinalOutput(Customer_list, Bank_list) ->
 	lists:foreach(fun (Item) ->
 %% 		io:format("~w ~n",[Item]),
-		[{Name1,Req1}] = ets:lookup(table_1, Item),
-		[{Name2,Req2}] = ets:lookup(table_2, Item),
+		[{Name1,Req1}] = ets:lookup(nirav_table_c1, Item),
+		[{Name2,Req2}] = ets:lookup(nirav_table_c2, Item),
 		if
 			Req2 == 0 ->
 				io:format("~w has reached the objective of ~w dollar(s). Woo Hoo! ~n",[Name1, Req1]);
@@ -95,7 +95,7 @@ printFinalOutput(Customer_list, Bank_list) ->
 
 	lists:foreach(fun (Item) ->
 %% 		io:format("~w ~n",[Item]),
-		[{Name,Bal}] = ets:lookup(table_3, Item),
+		[{Name,Bal}] = ets:lookup(nirav_table_b, Item),
 		io:format("~w has ~w dollar(s) remaining. ~n",[Name, Bal])
 	end, Bank_list).
 	

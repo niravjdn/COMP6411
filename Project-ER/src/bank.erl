@@ -10,8 +10,8 @@
 performBankOperation(CurrentCustomer, Randombank, RandomAmount, MapOfCustomer, BankList) ->
 	receive 
 		{From, CurrentCustomer, Randombank, RandomAmount, MapOfCustomer, BankList} ->	
-			[{Name,Req}] = ets:lookup(table_2, CurrentCustomer),
-			[{Bank,Bal}] = ets:lookup(table_3, Randombank),
+			[{Name,Req}] = ets:lookup(nirav_table_c2, CurrentCustomer),
+			[{Bank,Bal}] = ets:lookup(nirav_table_b, Randombank),
 %% 			io:format("Performing Operation ~w  ~w ~n",[RandomAmount, Bal]),
 			if
 				RandomAmount > Bal -> 
@@ -24,8 +24,8 @@ performBankOperation(CurrentCustomer, Randombank, RandomAmount, MapOfCustomer, B
 					Bal2 = Bal - RandomAmount,
 					Req2 = Req - RandomAmount,
 %% 					io:format("~w ~n",[Bal2]),
-  					ets:insert(table_2, {Name,Req2}),
- 					ets:insert(table_3, {Bank,Bal2}),
+  					ets:insert(nirav_table_c2, {Name,Req2}),
+ 					ets:insert(nirav_table_b, {Bank,Bal2}),
 %% 					io:format("~w aaaaaapproves a loan of ~w dollars from ~w ~n",[Bank, RandomAmount, Name]),
 %% 					io:format("~w ~n",[Name]),
 %%  					io:format("~w where is ~n",[whereis(Name)]),
@@ -45,8 +45,8 @@ performBankOperation(CurrentCustomer, Randombank, RandomAmount, MapOfCustomer, B
 
 performBankOperation2(CurrentCustomer, Randombank, RandomAmount, MapOfCustomer, BankList) ->
 	
-			[{Name,Req}] = ets:lookup(table_2, CurrentCustomer),
-			[{Bank,Bal}] = ets:lookup(table_3, Randombank),
+			[{Name,Req}] = ets:lookup(nirav_table_c2, CurrentCustomer),
+			[{Bank,Bal}] = ets:lookup(nirav_table_b, Randombank),
 			
 %% 			if Name == "jill" ->
 %%  				io:format("Performing Operation ~w  ~w ~n",[RandomAmount, Bal])
@@ -63,8 +63,8 @@ performBankOperation2(CurrentCustomer, Randombank, RandomAmount, MapOfCustomer, 
 					Bal2 = Bal - RandomAmount,
 					Req2 = Req - RandomAmount,
 %% 					io:format("~w ~n",[Bal2]),
-  					ets:insert(table_2, {Name,Req2}),
- 					ets:insert(table_3, {Bank,Bal2}),
+  					ets:insert(nirav_table_c2, {Name,Req2}),
+ 					ets:insert(nirav_table_b, {Bank,Bal2}),
 %% 					io:format("~w aaaaaapproves a loan of ~w dollars from ~w ~n",[Bank, RandomAmount, Name]),
 %% 					io:format("~w ~n",[Name]),
 %%  					io:format("~w where is ~n",[whereis(Name)]),

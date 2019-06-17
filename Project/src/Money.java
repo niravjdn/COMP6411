@@ -197,13 +197,13 @@ class Customer extends Thread {
 			return false;
 		}
 
-		for (Bank b : banksList) {
-			if (b.availableBalance != 0) {
-				return true;
-			}
-		}
+//		for (Bank b : banksList) {
+//			if (b.availableBalance != 0) {
+//				return true;
+//			}
+//		}
 		// continue looping
-		return false;
+		return true;
 	}
 
 	public void setBankList(ArrayList<Bank> banksList) {

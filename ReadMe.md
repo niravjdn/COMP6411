@@ -39,7 +39,7 @@ c(customer).
 and then run money :
 
 ```
-(money).
+money:start().
 ```
 
 Yipeee - COMP 6411 Completed.

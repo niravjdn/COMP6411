@@ -193,7 +193,7 @@ class Customer extends Thread {
 	}
 
 	private boolean checkController() {
-		if (loanAmount == balance) {
+		if (loanAmount == balance || banksList.isEmpty()) {
 			return false;
 		}
 

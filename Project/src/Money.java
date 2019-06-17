@@ -6,7 +6,7 @@ import java.util.Random;
 
 import sun.util.logging.resources.logging;
 
-public class Main {
+public class Money {
 	static ArrayList<Customer> customers;
 	static ArrayList<Bank> banks;
 	static boolean controller = true;

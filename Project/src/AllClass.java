@@ -211,7 +211,7 @@ class Customer extends Thread {
 	}
 }
 
-class Bank {
+class Bank extends Thread{
 	String name;
 	int availableBalance;
 

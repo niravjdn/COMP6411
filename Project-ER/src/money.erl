@@ -64,7 +64,7 @@ start() ->
 		end,ok, F_list),
 
 	printStuff(Customer_list, Bank_list),
-	io:format("finalll ~w",[F_list]),
+%% 	io:format("finalll ~w",[F_list]),
 	ok.	
 
 printStuff(Customer_list, Bank_list) ->    

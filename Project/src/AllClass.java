@@ -68,6 +68,7 @@ public class AllClass {
 	private static void printBanks() {
 		for (Bank b : banks) {
 			System.out.println(b);
+			//b.start();
 		}
 	}
 
